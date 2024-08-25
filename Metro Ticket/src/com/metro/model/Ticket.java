@@ -3,11 +3,13 @@ package com.metro.model;
 import com.metro.enums.TicketType;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Ticket {
 
     private static final AtomicInteger idCounter = new AtomicInteger(1);
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy HH:mm");
 
     private int ticketId;
     private Route route;
@@ -72,4 +74,18 @@ public class Ticket {
     public void setPeakHour(boolean peakHour) {
         isPeakHour = peakHour;
     }
+
+    @Override
+    public String toString() {
+
+
+
+        return "ticketId=" + ticketId +
+                ", route=" + route.getRouteName() +
+                ", ticketType=" + ticketType +
+                ", fare=" + String.format("%.2f", fare) +
+                ", purchaseTime=" + purchaseTime.format(formatter) +
+                ", isPeakHour=" + isPeakHour;
+    }
+
 }
